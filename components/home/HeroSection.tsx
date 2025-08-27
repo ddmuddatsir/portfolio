@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
@@ -9,33 +9,65 @@ interface HeroSectionProps {
 const HeroSection = memo(function HeroSection({
   onScrollToPortfolio,
 }: HeroSectionProps) {
+  const [animationsReady, setAnimationsReady] = useState(false);
+
+  useEffect(() => {
+    // Start animations after component mounts
+    const timer = setTimeout(() => {
+      setAnimationsReady(true);
+    }, 50); // Very quick start
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }} // Reduced from 0.8
-      className="my-48 text-left"
-    >
-      <h1 className="md:text-8xl lg:text-8xl text-4xl font-extrabold bg-gradient-to-r text-white text-transparent bg-clip-text drop-shadow-lg">
+    <div className="my-48 text-left">
+      {/* Static content first, then animate */}
+      <motion.h1
+        className="md:text-8xl lg:text-8xl text-4xl font-extrabold bg-gradient-to-r text-white text-transparent bg-clip-text drop-shadow-lg"
+        initial={false} // No initial animation delay
+        animate={animationsReady ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         Here`s Muddatsir
-      </h1>
-      <p className="text-gray-white mt-6 max-w-3xl md:text-md lg:text-md text-sm leading-relaxed">
+      </motion.h1>
+
+      <motion.p
+        className="text-gray-white mt-6 max-w-3xl md:text-md lg:text-md text-sm leading-relaxed"
+        initial={false}
+        animate={
+          animationsReady ? { opacity: 1, y: 0 } : { opacity: 0.9, y: 0 }
+        }
+        transition={{ duration: 0.4, delay: 0.1 }}
+      >
         Building Fast, Scalable Digital Experiences & Enthusiastic about React,
         Next.js, and TypeScript, I create responsive and high-performance
         applications. With a background in Business Management and have skill in
         multimedia, I bring a unique touch to design and user experience.
-      </p>
+      </motion.p>
 
       {/* CTA Button */}
-      <button
+      <motion.button
         onClick={onScrollToPortfolio}
         className="mt-6 md:px-6 px-3 py-2 md:py-3 bg-indigo-700 rounded-lg text-white md:text-lg text-sm font-semibold shadow-md hover:bg-indigo-900 transition-all"
+        initial={false}
+        animate={
+          animationsReady ? { opacity: 1, y: 0 } : { opacity: 0.8, y: 0 }
+        }
+        transition={{ duration: 0.4, delay: 0.2 }}
       >
         Lihat Portofolio
-      </button>
+      </motion.button>
 
       {/* Social Icons */}
-      <div className="flex md:gap-6 gap-3 mt-6 md:text-3xl text-xl md:justify-start">
+      <motion.div
+        className="flex md:gap-6 gap-3 mt-6 md:text-3xl text-xl md:justify-start"
+        initial={false}
+        animate={
+          animationsReady ? { opacity: 1, y: 0 } : { opacity: 0.7, y: 0 }
+        }
+        transition={{ duration: 0.4, delay: 0.3 }}
+      >
         <a href="#" className="text-gray-400 hover:text-white transition-all">
           <FaGithub />
         </a>
@@ -45,8 +77,8 @@ const HeroSection = memo(function HeroSection({
         <a href="#" className="text-gray-400 hover:text-white transition-all">
           <FaTwitter />
         </a>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 });
 

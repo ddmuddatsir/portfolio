@@ -2,11 +2,11 @@
 
 import { techStack } from "@/data/techStack";
 import { motion } from "framer-motion";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState, useEffect } from "react";
 
 // Memoized tech item component
 const TechItem = memo(({ tech }: { tech: (typeof techStack)[0] }) => (
-  <div className="flex items-center gap-3 bg-gray-800/80 px-4 py-2 rounded-lg backdrop-blur-sm border border-gray-700/50 hover:bg-gray-700/80 transition-colors duration-700 whitespace-nowrap">
+  <div className="flex items-center gap-3 bg-gray-800/80 px-4 py-2 rounded-lg backdrop-blur-sm border border-gray-700/50 hover:bg-gray-700/80 transition-colors duration-300 whitespace-nowrap">
     <tech.icon className={`text-xl ${tech.color}`} />
     <span className="text-sm font-medium">{tech.name}</span>
   </div>
@@ -15,24 +15,39 @@ const TechItem = memo(({ tech }: { tech: (typeof techStack)[0] }) => (
 TechItem.displayName = "TechItem";
 
 const TechStackSection = memo(function TechStackSection() {
+  const [animationsEnabled, setAnimationsEnabled] = useState(false);
+  const [carouselEnabled, setCarouselEnabled] = useState(false);
+
   // Memoize the duplicated tech stack to prevent recreation
   const duplicatedTechStack = useMemo(() => [...techStack, ...techStack], []);
 
+  useEffect(() => {
+    // Enable basic animations first
+    const animTimer = setTimeout(() => {
+      setAnimationsEnabled(true);
+    }, 100);
+
+    // Enable carousel after everything else is loaded
+    const carouselTimer = setTimeout(() => {
+      setCarouselEnabled(true);
+    }, 1000);
+
+    return () => {
+      clearTimeout(animTimer);
+      clearTimeout(carouselTimer);
+    };
+  }, []);
+
   return (
-    <motion.section
-      className="w-full mb-32 text-center"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, margin: "-100px" }}
-    >
-      {/* Header */}
+    <section className="w-full mb-32 text-center">
+      {/* Static header - no animation delay */}
       <motion.div
         className="mb-12"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true }}
+        initial={false}
+        animate={
+          animationsEnabled ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }
+        }
+        transition={{ duration: 0.4 }}
       >
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
@@ -44,26 +59,33 @@ const TechStackSection = memo(function TechStackSection() {
         </p>
       </motion.div>
 
-      {/* Optimized carousel */}
+      {/* Progressive carousel loading */}
       <motion.div
         className="relative overflow-hidden w-full"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        viewport={{ once: true }}
+        initial={false}
+        animate={
+          animationsEnabled
+            ? { opacity: 1, scale: 1 }
+            : { opacity: 0.8, scale: 0.95 }
+        }
+        transition={{ duration: 0.6 }}
       >
         <motion.div
           className="flex gap-4 text-white"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            repeat: Infinity,
-            duration: 80, // Increased from 60 to 80 seconds (even slower)
-            ease: "linear",
-            repeatType: "loop",
-          }}
+          animate={carouselEnabled ? { x: ["0%", "-50%"] } : {}}
+          transition={
+            carouselEnabled
+              ? {
+                  repeat: Infinity,
+                  duration: 80, // Very slow for performance
+                  ease: "linear",
+                  repeatType: "loop",
+                }
+              : {}
+          }
           style={{
             display: "flex",
-            minWidth: "200%", // Reduced from 400%
+            minWidth: "200%",
             willChange: "transform", // Optimize for transform changes
             transform: "translateZ(0)", // Force GPU acceleration
           }}
@@ -77,7 +99,7 @@ const TechStackSection = memo(function TechStackSection() {
         <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent pointer-events-none" />
       </motion.div>
-    </motion.section>
+    </section>
   );
 });
 

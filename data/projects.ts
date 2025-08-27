@@ -24,8 +24,8 @@ export const projects: Project[] = [
       "/images/catetin/Catetin2.png",
       "/images/catetin/Catetin3.png",
     ],
-    demoUrl: "https://catetin-demo.vercel.app",
-    sourceCodeUrl: "https://github.com/muddatsir/catetin-app",
+    demoUrl: "https://catetin-web-mobile-first-d996w5m3a.vercel.app/",
+    sourceCodeUrl: "https://github.com/ddmuddatsir/Catetin-web-mobile-first",
     role: "Full Stack Developer",
     challenges: [
       {
@@ -123,9 +123,9 @@ export const projects: Project[] = [
       "/images/penjualinCRM/PenjualinCRM2.png",
       "/images/penjualinCRM/PenjualinCRM3.png",
     ],
-    demoUrl: "https://penjualincrm.vercel.app",
-    sourceCodeUrl: "https://github.com/muddatsir/penjualin-crm",
-    role: "Lead Full Stack Developer",
+    demoUrl: "https://penjualin-crm-website-v64o.vercel.app/",
+    sourceCodeUrl: "https://github.com/ddmuddatsir/penjualin-crm-website",
+    role: "Full Stack Developer",
     challenges: [
       {
         problem: "Real-time notification dan chat system untuk tim sales",
@@ -174,8 +174,9 @@ export const projects: Project[] = [
       "/images/marketin/Marketin2.png",
       "/images/marketin/Marketin3.png",
     ],
-    demoUrl: "https://ecommerce-dashboard-demo.vercel.app",
-    sourceCodeUrl: "https://github.com/muddatsir/ecommerce-dashboard",
+    demoUrl:
+      "https://marketin-website-ekk8-q2lp6r06x.vercel.app/account/profile",
+    sourceCodeUrl: "https://github.com/ddmuddatsir/marketin-website",
     role: "Full Stack Developer",
     challenges: [
       {

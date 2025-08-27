@@ -1,4 +1,5 @@
 import { learnStep } from "@/data/learnStep";
+import { LearnStep } from "@/types/portfolio";
 import { motion } from "framer-motion";
 
 export default function JourneySection() {
@@ -26,13 +27,15 @@ export default function JourneySection() {
           <h2 className="text-3xl font-semibold md:mt-0 mt-9">Step by Step</h2>
 
           <div className="mt-5 space-y-6 md:text-md lg:text-md text-sm text-gray-400 leading-relaxed">
-            {learnStep.map((step, index) => (
-              <div key={index}>
-                <p>
-                  {step.icon}{" "}
-                  <strong className="text-gray-200">{step.years}:</strong>{" "}
-                  {step.text}
-                </p>
+            {learnStep.map((step: LearnStep, index: number) => (
+              <div key={index} className="flex items-start gap-3">
+                <span className="text-2xl flex-shrink-0">{step.icon}</span>
+                <div>
+                  <p>
+                    <strong className="text-gray-200">{step.years}:</strong>{" "}
+                    {step.text}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

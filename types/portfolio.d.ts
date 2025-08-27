@@ -11,6 +11,12 @@ interface ProjectCarouselProps {
   images?: string[];
 }
 
+export interface LearnStep {
+  icon: string;
+  years: string;
+  text: string;
+}
+
 export interface Project {
   id: string;
   title: string;

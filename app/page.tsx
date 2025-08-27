@@ -1,35 +1,61 @@
 "use client";
 
-import { useRef, useEffect, Suspense } from "react";
+import { useRef, useEffect, useState, Suspense } from "react";
 import dynamic from "next/dynamic";
-import Lighting from "@/components/Lighting";
 import HeroSection from "@/components/home/HeroSection";
-import TechStackSection from "@/components/home/TechStackSection";
 
-// Lazy load hanya komponen yang berat
+// Non-critical components - lazy load with progressive enhancement
+const Lighting = dynamic(() => import("@/components/Lighting"), {
+  ssr: false,
+  loading: () => null, // No loading state, just load when ready
+});
+
+const TechStackSection = dynamic(
+  () => import("@/components/home/TechStackSection"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-32 flex items-center justify-center">
+        <div className="text-gray-500 animate-pulse">Loading Tech Stack...</div>
+      </div>
+    ),
+  }
+);
+
 const PortfolioSection = dynamic(
   () => import("@/components/home/PortfolioSection"),
   {
     ssr: false,
     loading: () => (
-      <div className="h-64 animate-pulse bg-gray-800/20 rounded-lg mx-4 my-8" />
+      <div className="h-64 flex items-center justify-center">
+        <div className="text-gray-500 animate-pulse">Loading Portfolio...</div>
+      </div>
     ),
   }
 );
 
 export default function Home() {
   const portfolioRef = useRef<HTMLDivElement | null>(null);
+  const [sectionsReady, setSectionsReady] = useState(false);
 
   useEffect(() => {
-    // Delay preloading agar tidak block initial render
+    // Start loading non-critical sections after hero is rendered
     const timer = setTimeout(() => {
+      setSectionsReady(true);
+    }, 200);
+
+    // Preload critical resources after initial render
+    const preloadTimer = setTimeout(() => {
       import("@/utils/preloader").then(({ preloadImages, preloadPages }) => {
         preloadImages();
         preloadPages();
       });
-    }, 100);
+    }, 500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(preloadTimer);
+    };
   }, []);
 
   const scrollToPortfolio = () => {
@@ -38,28 +64,40 @@ export default function Home() {
 
   return (
     <>
-      <Lighting
-        starCount={40} // Reduced from 80
-        nebulaOpacity={0.1} // Reduced from 0.15
-        starAnimRange={{ animY: [-1, 2], animX: [-1, 1] }} // Reduced range
-      />
+      {/* Load lighting effect progressively */}
+      <Suspense fallback={null}>
+        <Lighting
+          starCount={sectionsReady ? 30 : 0} // No stars until sections ready
+          nebulaOpacity={sectionsReady ? 0.08 : 0}
+        />
+      </Suspense>
 
       <div className="relative min-h-screen text-white flex flex-col md:mx-24 md:px-6 pb-20 overflow-x-hidden overflow-y-hidden">
-        {/* Critical - Load immediately */}
+        {/* Critical - Always load first */}
         <HeroSection onScrollToPortfolio={scrollToPortfolio} />
 
-        {/* Tech Stack - Load immediately for better timing */}
-        <TechStackSection />
+        {/* Progressive loading of sections */}
+        {sectionsReady && (
+          <>
+            <Suspense
+              fallback={
+                <div className="h-32 animate-pulse bg-gray-800/20 rounded-lg mx-4 my-8" />
+              }
+            >
+              <TechStackSection />
+            </Suspense>
 
-        <div ref={portfolioRef}>
-          <Suspense
-            fallback={
-              <div className="h-64 animate-pulse bg-gray-800/20 rounded-lg mx-4 my-8" />
-            }
-          >
-            <PortfolioSection />
-          </Suspense>
-        </div>
+            <div ref={portfolioRef}>
+              <Suspense
+                fallback={
+                  <div className="h-64 animate-pulse bg-gray-800/20 rounded-lg mx-4 my-8" />
+                }
+              >
+                <PortfolioSection />
+              </Suspense>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
