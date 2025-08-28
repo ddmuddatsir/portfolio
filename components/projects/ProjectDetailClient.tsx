@@ -20,28 +20,55 @@ export default function ProjectDetailClient({
   project,
 }: ProjectDetailClientProps) {
   const statusColors = {
-    completed: "text-green-400 bg-green-400/10",
-    "in-progress": "text-yellow-400 bg-yellow-400/10",
-    planned: "text-blue-400 bg-blue-400/10",
+    completed: "text-green-300 bg-green-950/20 border-green-800/30",
+    "in-progress": "text-yellow-300 bg-yellow-950/20 border-yellow-800/30",
+    planned: "text-blue-300 bg-blue-950/20 border-blue-800/30",
   };
 
   const categoryColors = {
-    web: "text-cyan-400 bg-cyan-400/10",
-    mobile: "text-purple-400 bg-purple-400/10",
-    desktop: "text-orange-400 bg-orange-400/10",
-    fullstack: "text-pink-400 bg-pink-400/10",
+    web: "text-cyan-300 bg-cyan-950/20 border-cyan-800/30",
+    mobile: "text-purple-300 bg-purple-950/20 border-purple-800/30",
+    desktop: "text-orange-300 bg-orange-950/20 border-orange-800/30",
+    fullstack: "text-pink-300 bg-pink-950/20 border-pink-800/30",
   };
 
   return (
     <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        {/* Breadcrumb */}
+        <nav className="mb-8">
+          <ol className="flex items-center space-x-2 text-sm">
+            <li>
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-gray-300 transition-colors"
+              >
+                Home
+              </Link>
+            </li>
+            <li className="text-gray-600">/</li>
+            <li>
+              <Link
+                href="/#portfolio"
+                className="text-gray-500 hover:text-gray-300 transition-colors"
+              >
+                Portfolio
+              </Link>
+            </li>
+            <li className="text-gray-600">/</li>
+            <li className="text-gray-300 font-medium truncate max-w-[200px]">
+              {project.title}
+            </li>
+          </ol>
+        </nav>
+
+        {/* Back Button */}
         <Link
           href="/#portfolio"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-300 transition-colors mb-12 text-sm"
         >
           <ArrowLeft className="w-4 h-4" />
-          Kembali ke Portfolio
+          Back to Portfolio
         </Link>
 
         {/* Project Header */}
@@ -49,22 +76,23 @@ export default function ProjectDetailClient({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
+          className="mb-16"
         >
-          <div className="flex flex-wrap items-center gap-4 mb-6">
+          {/* Status and Category Badges */}
+          <div className="flex flex-wrap items-center gap-3 mb-8">
             <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
+              className={`px-4 py-2 rounded-xl text-sm font-medium border ${
                 statusColors[project.status]
               }`}
             >
               {project.status === "completed"
-                ? "Selesai"
+                ? "Completed"
                 : project.status === "in-progress"
-                ? "Dalam Pengerjaan"
-                : "Direncanakan"}
+                ? "In Progress"
+                : "Planned"}
             </span>
             <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${
+              className={`px-4 py-2 rounded-xl text-sm font-medium border ${
                 categoryColors[project.category]
               }`}
             >
@@ -78,21 +106,23 @@ export default function ProjectDetailClient({
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+          {/* Title and Description */}
+          <h1 className="md:text-6xl lg:text-6xl text-5xl font-semibold mb-6 text-gray-100">
             {project.title}
           </h1>
 
-          <p className="text-xl text-gray-400 mb-8 max-w-3xl">
+          <p className="md:text-lg lg:text-lg text-base text-gray-400 mb-12 max-w-4xl leading-relaxed">
             {project.description}
           </p>
 
+          {/* Action Buttons */}
           <div className="flex flex-wrap gap-4">
             {project.demoUrl && (
               <a
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-blue-950/30 hover:bg-blue-900/40 border border-blue-800/30 hover:border-blue-700/50 text-blue-300 hover:text-blue-200 rounded-xl transition-all duration-300"
               >
                 <ExternalLink className="w-4 h-4" />
                 Live Demo
@@ -103,7 +133,7 @@ export default function ProjectDetailClient({
                 href={project.sourceCodeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800/30 hover:bg-gray-700/40 border border-gray-700/30 hover:border-gray-600/50 text-gray-400 hover:text-gray-300 rounded-xl transition-all duration-300"
               >
                 <Github className="w-4 h-4" />
                 Source Code
@@ -117,21 +147,21 @@ export default function ProjectDetailClient({
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-16"
+          className="mb-20"
         >
-          <div className="relative rounded-2xl overflow-hidden bg-gray-900 p-4 md:p-8 flex justify-center">
+          <div className="relative rounded-3xl overflow-hidden bg-gray-950/30 border border-gray-800/30 p-8">
             <Image
               src={project.image}
               alt={project.title}
-              width={800}
-              height={500}
-              className="rounded-xl object-contain max-w-full max-h-[500px] w-auto h-auto"
+              width={1200}
+              height={600}
+              className="rounded-2xl object-cover w-full h-auto max-h-[600px]"
             />
           </div>
         </motion.div>
 
         {/* Project Details Grid */}
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
+        <div className="grid lg:grid-cols-2 gap-16 mb-20">
           {/* Left Column */}
           <div className="space-y-12">
             {/* Overview */}
@@ -140,8 +170,10 @@ export default function ProjectDetailClient({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h2 className="text-3xl font-bold mb-6">Overview</h2>
-              <p className="text-gray-300 leading-relaxed">
+              <h2 className="text-2xl font-semibold mb-6 text-gray-200">
+                Overview
+              </h2>
+              <p className="text-gray-400 leading-relaxed text-base">
                 {project.longDescription}
               </p>
             </motion.div>
@@ -152,11 +184,11 @@ export default function ProjectDetailClient({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                <User className="w-5 h-5" />
+              <h3 className="text-xl font-semibold mb-4 text-gray-200 flex items-center gap-3">
+                <User className="w-5 h-5 text-gray-400" />
                 My Role
               </h3>
-              <p className="text-gray-300">{project.role}</p>
+              <p className="text-gray-400">{project.role}</p>
             </motion.div>
 
             {/* Technologies */}
@@ -165,12 +197,14 @@ export default function ProjectDetailClient({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <h3 className="text-2xl font-bold mb-6">Tech Stack</h3>
-              <div className="flex flex-wrap gap-3">
+              <h3 className="text-xl font-semibold mb-6 text-gray-200">
+                Technologies Used
+              </h3>
+              <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, index) => (
                   <span
                     key={index}
-                    className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm transition-colors"
+                    className="px-3 py-2 bg-gray-800/30 hover:bg-gray-700/40 border border-gray-700/30 hover:border-gray-600/50 text-gray-300 rounded-lg text-sm transition-all duration-300"
                   >
                     {tech}
                   </span>
@@ -187,12 +221,16 @@ export default function ProjectDetailClient({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <h3 className="text-2xl font-bold mb-6">Key Features</h3>
-              <ul className="space-y-3">
+              <h3 className="text-xl font-semibold mb-6 text-gray-200">
+                Key Features
+              </h3>
+              <ul className="space-y-4">
                 {project.features.map((feature, index) => (
                   <li key={index} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-300">{feature}</span>
+                    <span className="text-gray-400 text-sm leading-relaxed">
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -204,20 +242,27 @@ export default function ProjectDetailClient({
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
             >
-              <h3 className="text-2xl font-bold mb-6">
+              <h3 className="text-xl font-semibold mb-6 text-gray-200">
                 Challenges & Solutions
               </h3>
               <div className="space-y-6">
                 {project.challenges.map((challenge, index) => (
-                  <div key={index} className="bg-gray-900/50 p-6 rounded-lg">
-                    <h4 className="text-lg font-semibold mb-3 text-red-400">
-                      Challenge:
+                  <div
+                    key={index}
+                    className="bg-gray-950/30 border border-gray-800/30 p-6 rounded-xl"
+                  >
+                    <h4 className="text-sm font-medium mb-3 text-red-300 uppercase tracking-wider">
+                      Challenge
                     </h4>
-                    <p className="text-gray-300 mb-4">{challenge.problem}</p>
-                    <h4 className="text-lg font-semibold mb-3 text-green-400">
-                      Solution:
+                    <p className="text-gray-400 mb-4 text-sm leading-relaxed">
+                      {challenge.problem}
+                    </p>
+                    <h4 className="text-sm font-medium mb-3 text-green-300 uppercase tracking-wider">
+                      Solution
                     </h4>
-                    <p className="text-gray-300">{challenge.solution}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {challenge.solution}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -231,21 +276,22 @@ export default function ProjectDetailClient({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="mb-16"
+            className="mb-20"
           >
-            <h3 className="text-2xl font-bold mb-6">Project Screenshots</h3>
+            <h3 className="text-xl font-semibold mb-8 text-gray-200">
+              Project Gallery
+            </h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {project.images.slice(1).map((image, index) => (
                 <div
                   key={index}
-                  className="relative rounded-xl overflow-hidden bg-gray-900 p-4 flex justify-center items-center min-h-[200px]"
+                  className="relative rounded-2xl overflow-hidden bg-gray-950/30 border border-gray-800/30 p-4 aspect-video"
                 >
                   <Image
                     src={image}
                     alt={`${project.title} screenshot ${index + 2}`}
-                    width={400}
-                    height={300}
-                    className="rounded-lg object-contain max-w-full max-h-[250px] w-auto h-auto"
+                    fill
+                    className="rounded-xl object-cover"
                   />
                 </div>
               ))}
@@ -258,11 +304,11 @@ export default function ProjectDetailClient({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
-          className="text-center py-16"
+          className="text-center py-12"
         >
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all transform hover:scale-105"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 border border-gray-700/50 hover:border-gray-600/50 text-gray-300 hover:text-white rounded-xl transition-all duration-300"
           >
             View More Projects
           </Link>

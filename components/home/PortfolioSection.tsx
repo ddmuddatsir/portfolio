@@ -61,7 +61,9 @@ export default function PortfolioSection() {
 
   return (
     <section id="portfolio" className="w-full mb-24">
-      <h2 className="text-4xl font-bold text-center mb-12">Portfolio</h2>
+      <h2 className="md:text-6xl lg:text-6xl text-5xl font-semibold text-center pb-2 mb-16">
+        Portfolio
+      </h2>
       {projects.map((project, index) => (
         <motion.div
           key={project.id}
@@ -75,64 +77,72 @@ export default function PortfolioSection() {
           {renderProjectImage(project, index)}
 
           <div className="flex-1">
-            <h3 className="md:text-3xl text-2xl font-semibold mb-6">
+            <h3 className="md:text-3xl lg:text-3xl text-3xl font-semibold mb-6">
               {project.title}
             </h3>
-            <p className="text-gray-400 md:text-lg text-sm leading-relaxed mb-6">
+            <p className="text-gray-400 md:text-md lg:text-md text-sm leading-relaxed mb-6">
               {project.description}
             </p>
 
             {/* Tech Stack */}
-            <div className="flex flex-wrap gap-3 mb-6">
+            <div className="flex flex-wrap gap-2 mb-6">
               {project.technologies.slice(0, 6).map((tech, idx) => (
                 <span
                   key={idx}
-                  className="bg-indigo-500 text-white px-4 py-2 md:text-md text-xs rounded-full shadow-md"
+                  className="px-2 py-1 bg-gray-800/50 text-gray-300 rounded-md text-xs font-medium border border-gray-700/30 hover:border-gray-600/50 transition-colors"
                 >
                   {tech}
                 </span>
               ))}
               {project.technologies.length > 6 && (
-                <span className="text-gray-400 px-4 py-2 md:text-md text-xs">
+                <span className="px-2 py-1 text-gray-500 text-xs">
                   +{project.technologies.length - 6} more
                 </span>
               )}
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href={`/portfolio/${project.id}`}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg transition-all transform hover:scale-105"
-              >
-                View Details
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-
-              {project.demoUrl && (
-                <a
-                  href={project.demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all"
+            {/* Action Buttons or Status Label */}
+            {project.title === "UG Bangunan Website Profil" ? (
+              <div className="mt-2">
+                <span className="inline-block px-5 py-2 rounded-lg bg-yellow-900/30 text-yellow-300 text-sm font-semibold border border-yellow-800/30">
+                  Not finished yet
+                </span>
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href={`/portfolio/${project.id}`}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-gray-700/50 hover:border-gray-600/50 text-gray-300 hover:text-white rounded-lg text-sm font-medium transition-all duration-300"
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  Live Demo
-                </a>
-              )}
+                  View Details
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
 
-              {project.sourceCodeUrl && (
-                <a
-                  href={project.sourceCodeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-all"
-                >
-                  <Github className="w-4 h-4" />
-                  Source Code
-                </a>
-              )}
-            </div>
+                {project.demoUrl && (
+                  <a
+                    href={project.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-950/30 hover:bg-blue-900/40 border border-blue-800/30 hover:border-blue-700/50 text-blue-300 hover:text-blue-200 rounded-lg text-sm font-medium transition-all duration-300"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    Demo
+                  </a>
+                )}
+
+                {project.sourceCodeUrl && (
+                  <a
+                    href={project.sourceCodeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-gray-800/30 hover:bg-gray-700/40 border border-gray-700/30 hover:border-gray-600/50 text-gray-400 hover:text-gray-300 rounded-lg text-sm font-medium transition-all duration-300"
+                  >
+                    <Github className="w-4 h-4" />
+                    Code
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </motion.div>
       ))}

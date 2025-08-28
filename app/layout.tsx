@@ -36,7 +36,7 @@ export default function RootLayout({
       <body className="antialiased">
         <ClientLayout>
           <div className="bg-black text-white min-h-screen flex flex-col relative">
-            <header className="fixed top-6 md:left-1/2 lg:left-1/2 left-80  transform -translate-x-1/2 bg-gray-600 bg-opacity-30 px-8 py-3 rounded-lg shadow-lg z-50 md:mt-3 mt-6 ml-4 md:ml-0">
+            <header className="fixed top-6 md:left-1/2 lg:left-1/2 left-80 transform -translate-x-1/2 z-50 md:mt-3 mt-6 ml-4 md:ml-0 md:bg-gray-600 md:bg-opacity-30 md:px-8 md:py-3 md:rounded-lg md:shadow-lg">
               <Navbar />
             </header>
             <main className="flex-grow p-8">{children}</main>

@@ -29,7 +29,7 @@ export const preloadImages = async () => {
 };
 
 export const preloadPages = () => {
-  const criticalPages = ["/blog", "/about"];
+  const criticalPages = ["/blog", "/about", "/contact"];
 
   const preloadWithIdle = () => {
     criticalPages.forEach((href) => {

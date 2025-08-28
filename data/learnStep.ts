@@ -7,32 +7,17 @@ export interface LearnStep {
 export const learnStep: LearnStep[] = [
   {
     icon: "🎯",
-    years: "2020",
-    text: "Started my programming journey with HTML, CSS, and JavaScript. Built my first static websites and learned the fundamentals of web development.",
+    years: "2023",
+    text: "Started programming with a focus on HTML, CSS, and JavaScript. Independently built static websites and mastered the fundamentals of web development. Demonstrated strong discipline and dedication in understanding industry best practices from the very beginning.",
   },
   {
     icon: "⚛️",
-    years: "2021",
-    text: "Discovered React and fell in love with component-based architecture. Started building dynamic web applications and learned state management.",
+    years: "2024",
+    text: "Deepened my skills with React, adapting component-based architecture and learning state management. Continued to learn through personal projects, online courses, and self-driven exploration of new technologies. Practiced effective problem-solving and continuously improved my coding abilities.",
   },
   {
     icon: "🚀",
-    years: "2022",
-    text: "Expanded to full-stack development with Node.js, Express, and databases. Built my first complete web applications with authentication and CRUD operations.",
-  },
-  {
-    icon: "🔧",
-    years: "2023",
-    text: "Mastered modern frameworks like Next.js, TypeScript, and advanced state management. Started working on complex projects with real-world applications.",
-  },
-  {
-    icon: "💼",
-    years: "2024",
-    text: "Focused on professional development, contributing to open source, and building scalable applications. Continuously learning new technologies and best practices.",
-  },
-  {
-    icon: "✨",
     years: "2025",
-    text: "Currently expanding expertise in cloud technologies, DevOps practices, and advanced system design. Always excited to tackle new challenges and innovations.",
+    text: "Expanded my full-stack capabilities using Node.js, Express, and databases. Designed and developed complete web applications with authentication and CRUD features as personal projects. Mastered modern frameworks like Next.js and TypeScript. Actively shared my learning process through blogging and mentoring, while preparing to take on future professional and collaborative opportunities.",
   },
 ];

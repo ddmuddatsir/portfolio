@@ -56,7 +56,7 @@ const HeroSection = memo(function HeroSection({
         }
         transition={{ duration: 0.4, delay: 0.2 }}
       >
-        Lihat Portofolio
+        See Portfolio
       </motion.button>
 
       {/* Social Icons */}
