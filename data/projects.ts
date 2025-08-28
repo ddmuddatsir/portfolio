@@ -25,7 +25,7 @@ export const projects: Project[] = [
       "/images/catetin/Catetin2.png",
       "/images/catetin/Catetin3.png",
     ],
-    demoUrl: "https://catetin-web-mobile-first-d996w5m3a.vercel.app/",
+    demoUrl: "https://catetin-web-mobile-first-d996w5m3a.vercel.app",
     sourceCodeUrl: "https://github.com/ddmuddatsir/Catetin-web-mobile-first",
     role: "Full Stack Developer",
     challenges: [

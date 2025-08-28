@@ -70,13 +70,28 @@ const HeroSection = memo(function HeroSection({
         }
         transition={{ duration: 0.4, delay: 0.3 }}
       >
-        <a href="#" className="text-gray-400 hover:text-white transition-all">
+        <a
+          href="https://github.com/ddmuddatsir"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-400 hover:text-white transition-all"
+        >
           <FaGithub />
         </a>
-        <a href="#" className="text-gray-400 hover:text-white transition-all">
+        <a
+          href="https://www.linkedin.com/in/nur-muhammad-muddatsir-41740b160/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-400 hover:text-white transition-all"
+        >
           <FaLinkedin />
         </a>
-        <a href="#" className="text-gray-400 hover:text-white transition-all">
+        <a
+          href="https://twitter.com/yourtwitter"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-400 hover:text-white transition-all"
+        >
           <FaTwitter />
         </a>
       </motion.div>
