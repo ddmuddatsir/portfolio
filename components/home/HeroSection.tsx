@@ -40,10 +40,12 @@ const HeroSection = memo(function HeroSection({
         }
         transition={{ duration: 0.4, delay: 0.1 }}
       >
-        Building Fast, Scalable Digital Experiences & Enthusiastic about React,
-        Next.js, and TypeScript, I create responsive and high-performance
-        applications. With a background in Business Management and have skill in
-        multimedia, I bring a unique touch to design and user experience.
+        Developing fast and adaptable digital solutions with a focus on modern,
+        flexible technologies such as React, Next.js, and TypeScript. I am
+        dedicated to delivering responsive, high-performance applications and
+        ensuring superior user experiences. My multidisciplinary background
+        allows me to approach every project with innovation and agility,
+        resulting in impactful and future-ready outcomes.
       </motion.p>
 
       {/* CTA Button */}
