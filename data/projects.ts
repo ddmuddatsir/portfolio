@@ -25,7 +25,7 @@ export const projects: Project[] = [
       "/images/catetin/Catetin2.png",
       "/images/catetin/Catetin3.png",
     ],
-    demoUrl: "https://catetin-web-mobile-first-d996w5m3a.vercel.app/",
+    demoUrl: "https://catetin-web-mobile-first.vercel.app/",
     sourceCodeUrl: "https://github.com/ddmuddatsir/Catetin-web-mobile-first",
     role: "Full Stack Developer",
     challenges: [
@@ -190,7 +190,7 @@ export const projects: Project[] = [
       "/images/marketin/Marketin2.png",
       "/images/marketin/Marketin3.png",
     ],
-    demoUrl: "https://marketin-website-ekk8-q2lp6r06x.vercel.app/",
+    demoUrl: "https://marketin-website.vercel.app/",
     sourceCodeUrl: "https://github.com/ddmuddatsir/marketin-website",
     role: "Full Stack Developer",
     challenges: [
